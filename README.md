@@ -1,7 +1,2 @@
 # Create Terraform Infra to deploy Jenkins Server on AWS. Terraform Code must be modular and follow all best practices. The instance must be assigned a elastic IP and have 
-
-# scheduled ebs snapshots once per day.
-
-# Jenkins must be deployed using docker compose, ensure data persistence for jenkins.
-
-# Maintain the docker compose in github repo and clone docker compose in the instance to launch Jenkins Server
+scheduled ebs snapshots once per day Jenkins must be deployed using docker compose, ensure data persistence for jenkins. Maintain the docker compose in github repo and clone docker compose in the instance to launch Jenkins Server
