@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://json.schemastore.org/helm-values.json
+authentik:
+  secret_key: "super-secret-key"
+
+postgresql:
+  enabled: true
+  auth:
+    username: authentik
+    password: strongpassword
+    database: authentik
+
+redis:
+  enabled: true
+
+server:
+  replicas: 2
+
+worker:
+  replicas: 2
+
+persistence:
+  enabled: true
+  storageClass: gp3
+  size: 10Gi
