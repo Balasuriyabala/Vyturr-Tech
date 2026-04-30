@@ -1,4 +1,7 @@
 #!/bin/bash
+exec > /var/log/user-data.log 2>&1
+set -x
+
 yum update -y
 
 # Install Docker
@@ -11,21 +14,23 @@ usermod -aG docker ec2-user
 # Install Git
 yum install git -y
 
-# Install Docker Compose
-curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
-chmod +x /usr/local/bin/docker-compose
+# Install Docker Compose plugin (modern)
+yum install docker-compose-plugin -y
 
-# Mount EBS volume
-mkfs -t ext4 /dev/xvdf
+# EBS mount (persistent storage)
+if ! blkid /dev/xvdf; then
+  mkfs -t ext4 /dev/xvdf
+fi
+
 mkdir -p /jenkins
 mount /dev/xvdf /jenkins
 echo "/dev/xvdf /jenkins ext4 defaults,nofail 0 2" >> /etc/fstab
 
-# Clone repo
+# Clone GitHub repo
 cd /home/ec2-user
-git clone ${repo_url} jenkins
+git clone https://github.com/Balasuriyabala/docker-compose.git jenkins
 
 cd jenkins
 
-# Run Jenkins
-/usr/local/bin/docker-compose up -d
+# Start Jenkins
+docker compose up -d
