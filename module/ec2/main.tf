@@ -47,30 +47,4 @@ resource "aws_volume_attachment" "jenkins_attach" {
   instance_id = aws_instance.jenkins.id
 }
 
-# Snapshot policy using Data Lifecycle Manager
-resource "aws_dlm_lifecycle_policy" "ebs_snapshots" {
-  description        = "Daily EBS snapshot"
-  execution_role_arn = var.dlm_role_arn
-  state              = "ENABLED"
-
-  policy_details {
-    resource_types = ["VOLUME"]
-
-    target_tags = {
-      Name = "${var.instance_name}-jenkins-volume"
-    }
-
-    schedule {
-      name = "daily-snapshot"
-
-      create_rule {
-        interval      = 24
-        interval_unit = "HOURS"
-      }
-
-      retain_rule {
-        count = 7
-      }
-    }
-  }
-}
+#

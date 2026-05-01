@@ -8,6 +8,11 @@ module "vpc" {
   az                  = var.az
 }
 
+module "iam" {
+  source    = "../../module/iam"
+  role_name = "dlm-role-prod"
+}
+
 module "ec2" {
   source = "../../module/ec2"
 
@@ -46,4 +51,11 @@ module "sg" {
       cidr      = "0.0.0.0/0"
     }
   }
+}
+
+
+module "dlm" {
+  source          = "../../module/dlm"
+  dlm_role_arn    = module.iam.dlm_role_arn
+  retention_count = 7
 }
