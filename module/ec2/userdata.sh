@@ -28,7 +28,8 @@ echo "/dev/xvdf /jenkins ext4 defaults,nofail 0 2" >> /etc/fstab
 
 # Clone GitHub repo
 cd /home/ec2-user
-git clone https://github.com/Balasuriyabala/docker-compose.git jenkins
+git clone ${repo_url}
+#git clone https://github.com/Balasuriyabala/docker-compose.git jenkins
 
 cd jenkins
 

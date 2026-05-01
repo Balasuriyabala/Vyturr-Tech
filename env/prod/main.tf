@@ -21,6 +21,8 @@ module "ec2" {
   repo_url      = var.repo_url
   az            = var.az
   dlm_role_arn  = var.dlm_role_arn
+  ebs_volume_size = var.ebs_volume_size
+  ebs_volume_type = var.ebs_volume_type
 }
 
 module "sg" {

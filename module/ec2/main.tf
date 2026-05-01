@@ -25,10 +25,16 @@ resource "aws_eip" "jenkins_eip" {
   }
 }
 
+resource "aws_eip_association" "jenkins_eip_assoc" {
+  instance_id   = aws_instance.jenkins.id
+  allocation_id = aws_eip.jenkins_eip.id
+}
+
 # Extra EBS Volume (for Jenkins data)
 resource "aws_ebs_volume" "jenkins" {
   availability_zone = var.az
-  size              = 10
+  size              = var.ebs_volume_size
+  type              = var.ebs_volume_type
 
   tags = {
     Name = "${var.instance_name}-jenkins-volume"

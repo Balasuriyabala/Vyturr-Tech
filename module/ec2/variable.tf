@@ -26,3 +26,11 @@ variable "az" {
 variable "dlm_role_arn" {
     type = string
 }
+
+variable "ebs_volume_type" {
+    type = string
+}
+
+variable "ebs_volume_size" {
+    type = number
+}
